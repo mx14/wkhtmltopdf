@@ -160,17 +160,20 @@ int handleError(bool success, int errorCode) {
 		if (errorCode < 1000) {
 			fprintf(stderr, "Exit with code %d due to http error: %d %s\n", c, errorCode, m);
 		} else {
-			QNetworkReply::NetworkError error = (QNetworkReply::NetworkError)(errorCode - 1000);
-			QString errorValue;
-			QMetaObject meta = QNetworkReply::staticMetaObject;
-			for (int i=0; i < meta.enumeratorCount(); ++i) {
-				QMetaEnum m = meta.enumerator(i);
-				if (m.name() == QLatin1String("NetworkError")) {
-					errorValue = QLatin1String(m.valueToKey(error));
-					break;
-				}
-			}
-			fprintf(stderr, "Exit with code %d due to network error: %s\n", c, errorValue.toLocal8Bit().data());
+			// QNetworkReply::NetworkError error = (QNetworkReply::NetworkError)(errorCode - 1000);
+			// QString errorValue;
+			// QMetaObject meta = QNetworkReply::staticMetaObject;
+			// for (int i=0; i < meta.enumeratorCount(); ++i) {
+			// 	QMetaEnum m = meta.enumerator(i);
+			// 	if (m.name() == QLatin1String("NetworkError")) {
+			// 		errorValue = QLatin1String(m.valueToKey(error));
+			// 		break;
+			// 	}
+			// }
+			// fprintf(stderr, "Exit with code %d due to network error: %s\n", c, errorValue.toLocal8Bit().data());
+
+			// skip ContentNotFoundError.
+			success = true;
 		}
 		return c;
 	} else if (!success) {
