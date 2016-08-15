@@ -173,7 +173,7 @@ int handleError(bool success, int errorCode) {
 			// fprintf(stderr, "Exit with code %d due to network error: %s\n", c, errorValue.toLocal8Bit().data());
 
 			// skip ContentNotFoundError.
-			success = true;
+			return EXIT_SUCCESS;
 		}
 		return c;
 	} else if (!success) {
